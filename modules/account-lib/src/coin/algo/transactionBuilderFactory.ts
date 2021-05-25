@@ -2,7 +2,6 @@ import { BaseCoin as CoinConfig } from '@bitgo/statics';
 import { NotImplementedError } from '../baseCoin/errors';
 import { KeyRegistrationBuilder } from './keyRegistrationBuilder';
 import { TransferBuilder } from './transferBuilder';
-import { TransactionBuilder } from './transactionBuilder';
 import { AssetTransferBuilder } from './assetTransferBuilder';
 
 export class TransactionBuilderFactory {
@@ -20,11 +19,14 @@ export class TransactionBuilderFactory {
     throw new NotImplementedError('getTransferBuilder not implemented');
   }
 
+  /**
+   * Gets the asset transfer builder.
+   *
+   * @returns {AssetTransferBuilder} A new AssetTransferBuilder.
+   *
+   * @see https://developer.algorand.org/docs/reference/transactions/#asset-transfer-transaction
+   */
   getAssetTransferBuilder(): AssetTransferBuilder {
-    throw new NotImplementedError('getAssetTransferBuilder not implemented');
-  }
-
-  from(raw: string | Uint8Array): TransactionBuilder {
-    throw new NotImplementedError('from not implemented');
+    return new AssetTransferBuilder(this.coinConfig);
   }
 }
